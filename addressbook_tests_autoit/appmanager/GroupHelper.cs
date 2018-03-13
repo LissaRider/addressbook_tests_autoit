@@ -36,7 +36,7 @@ namespace addressbook_tests_autoit
             aux.WinWait(GROUPWINTITLE);
         }
 
-        public List<GroupData> GetGrouplist()
+        public List<GroupData> GetGroupList()
         {
             List<GroupData> list = new List<GroupData>();
             // Возвращение пустого списка
@@ -52,7 +52,7 @@ namespace addressbook_tests_autoit
             {
                 string item = aux.ControlTreeView(
                     GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51",
-                    "GetText", "#0|#"+i, "");
+                    "GetText", "#0|#" + i, "");
                 list.Add(new GroupData()
                 {
                     Name = item
