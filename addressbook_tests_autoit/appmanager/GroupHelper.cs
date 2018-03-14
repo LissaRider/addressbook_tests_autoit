@@ -12,23 +12,25 @@ namespace addressbook_tests_autoit
 
         public GroupHelper(ApplicationManager manager) : base(manager) { }
 
-        public void Add(GroupData newGroup)
+        public void Create(GroupData group)
         {
             OpenGroupsDialogue();
+
             InitGroupAdding();
             // Ввод значения в поле наименования группы
-            aux.Send(newGroup.Name);
+            aux.Send(group.Name);
             // Эмуляция нажатия кнопки Enter
             aux.Send("{ENTER}");
+
             CloseGroupsDialogue();
         }
 
-        public List<GroupData> GetGroupList()
+        public List<GroupData> GetGroupsList()
         {
             List<GroupData> list = new List<GroupData>();
-            // Возвращение пустого списка
-            // return new List<GroupData>();
+
             OpenGroupsDialogue();
+
             // 4 параметр: команда https://www.autoitscript.com/autoit3/docs/functions/ControlTreeView.htm ,
             // 5 параметр: дополнительный параметр (либо путь, либо порядковый номер),
             // 6 параметр -?
@@ -45,6 +47,7 @@ namespace addressbook_tests_autoit
                     Name = item
                 });
             }
+
             CloseGroupsDialogue();
             return list;
         }
@@ -58,8 +61,8 @@ namespace addressbook_tests_autoit
             CloseDeleteGroupDialogue();
 
             CloseGroupsDialogue();
-        }  
-       
+        }
+
         // Group removal methods
         public void OpenDeleteGroupDialogue()
         {
@@ -75,9 +78,11 @@ namespace addressbook_tests_autoit
         public int GetGroupCount()
         {
             OpenGroupsDialogue();
+
             int count = int.Parse(aux.ControlTreeView(
                 GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51",
                 "GetItemCount", "#0", ""));
+
             CloseGroupsDialogue();
             return count;
         }
@@ -108,7 +113,7 @@ namespace addressbook_tests_autoit
         {
             // Нажатие кнопки New
             aux.ControlClick(GROUPWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d53");
-        }       
+        }
 
         // Verification
         public void VerifyGroupPresence()
@@ -119,10 +124,10 @@ namespace addressbook_tests_autoit
             {
                 GroupData newGroup = new GroupData()
                 {
-                    Name = "Default"
+                    Name = "GroupName"
                 };
 
-                Add(newGroup);
+                Create(newGroup);
             }
         }
     }

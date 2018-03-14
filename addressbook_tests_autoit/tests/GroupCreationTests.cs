@@ -12,21 +12,21 @@ namespace addressbook_tests_autoit
     public class GroupCreationTests : TestBase
     {
         [Test]
-        public void TestGroupCreation()
+        public void GroupCreationTest()
         {
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            List<GroupData> oldGroups = app.Groups.GetGroupsList();
 
-            GroupData newGroup = new GroupData()
+            GroupData group = new GroupData()
             {
-                Name = "test"
+                Name = "Group"
             };
 
-            app.Groups.Add(newGroup);
+            app.Groups.Create(group);
 
             Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
 
-            List<GroupData> newGroups = app.Groups.GetGroupList();
-            oldGroups.Add(newGroup);
+            List<GroupData> newGroups = app.Groups.GetGroupsList();
+            oldGroups.Add(group);
             oldGroups.Sort();
             newGroups.Sort();
 
