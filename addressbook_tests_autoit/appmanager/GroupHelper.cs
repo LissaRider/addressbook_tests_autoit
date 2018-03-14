@@ -8,32 +8,19 @@ namespace addressbook_tests_autoit
     public class GroupHelper : HelperBase
     {
         public static string GROUPWINTITLE = "Group editor";
+        public static string DELETEGROUPWINTITLE = "Delete group";
+
         public GroupHelper(ApplicationManager manager) : base(manager) { }
 
         public void Add(GroupData newGroup)
         {
             OpenGroupsDialogue();
-            // Нажатие кнопки New
-            aux.ControlClick(GROUPWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d53");
+            InitGroupAdding();
             // Ввод значения в поле наименования группы
             aux.Send(newGroup.Name);
             // Эмуляция нажатия кнопки Enter
             aux.Send("{ENTER}");
             CloseGroupsDialogue();
-        }
-
-        private void CloseGroupsDialogue()
-        {
-            // Закрытие окна кнопкой Close
-            aux.ControlClick(GROUPWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d54");
-        }
-
-        private void OpenGroupsDialogue()
-        {
-            // Вызов окна Group editor 
-            aux.ControlClick(WINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d512");
-            // Ожидание открытия окна
-            aux.WinWait(GROUPWINTITLE);
         }
 
         public List<GroupData> GetGroupList()
@@ -60,6 +47,83 @@ namespace addressbook_tests_autoit
             }
             CloseGroupsDialogue();
             return list;
+        }
+
+        public void Remove(int index)
+        {
+            OpenGroupsDialogue();
+
+            SelectGroup(index);
+            OpenDeleteGroupDialogue();
+            CloseDeleteGroupDialogue();
+
+            CloseGroupsDialogue();
+        }  
+       
+        // Group removal methods
+        public void OpenDeleteGroupDialogue()
+        {
+            aux.ControlClick(GROUPWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d51");
+            aux.WinWait(DELETEGROUPWINTITLE);
+        }
+
+        public void CloseDeleteGroupDialogue()
+        {
+            aux.ControlClick(DELETEGROUPWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d53");
+        }
+
+        public int GetGroupCount()
+        {
+            OpenGroupsDialogue();
+            int count = int.Parse(aux.ControlTreeView(
+                GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51",
+                "GetItemCount", "#0", ""));
+            CloseGroupsDialogue();
+            return count;
+        }
+
+        // Common methods   
+        public void OpenGroupsDialogue()
+        {
+            // Вызов окна Group editor 
+            aux.ControlClick(WINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d512");
+            // Ожидание открытия окна
+            aux.WinWait(GROUPWINTITLE);
+        }
+
+        public void CloseGroupsDialogue()
+        {
+            // Закрытие окна кнопкой Close
+            aux.ControlClick(GROUPWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d54");
+        }
+
+        public void SelectGroup(int index)
+        {
+            // Выбор группы из списка для удаления
+            aux.ControlTreeView(GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51", "Select", "#0|#" + index, "");
+        }
+
+        // Group creation methods
+        public void InitGroupAdding()
+        {
+            // Нажатие кнопки New
+            aux.ControlClick(GROUPWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d53");
+        }       
+
+        // Verification
+        public void VerifyGroupPresence()
+        {
+            OpenGroupsDialogue();
+
+            if (GetGroupCount() <= 1)
+            {
+                GroupData newGroup = new GroupData()
+                {
+                    Name = "Default"
+                };
+
+                Add(newGroup);
+            }
         }
     }
 }

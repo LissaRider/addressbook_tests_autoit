@@ -18,7 +18,7 @@ namespace addressbook_tests_autoit
         }
 
         [TestFixtureTearDown]
-        public void stopApplicatopn()
+        public void stopApplication()
         {
             app.Stop();
         }
