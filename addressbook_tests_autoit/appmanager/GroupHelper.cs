@@ -28,7 +28,6 @@ namespace addressbook_tests_autoit
             return this;
         }
 
-
         public GroupHelper Remove(int index)
         {
             OpenGroupsDialogue();
@@ -81,13 +80,12 @@ namespace addressbook_tests_autoit
             aux.ControlClick(DELETEGROUPWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d53");
         }
 
+        // Verification
         public List<GroupData> GetGroupsList()
         {
             List<GroupData> list = new List<GroupData>();
-
             OpenGroupsDialogue();
-
-            // 4 параметр: Команда https://www.autoitscript.com/autoit3/docs/functions/ControlTreeView.htm ,
+            // 4 параметр: Команда 'ControlTreeView' https://www.autoitscript.com/autoit3/docs/functions/ControlTreeView.htm ,
             // 5 параметр: Дополнительный параметр (либо путь, либо порядковый номер),
             // 6 параметр: Options (необязательный).
             string count = aux.ControlTreeView(
@@ -105,9 +103,9 @@ namespace addressbook_tests_autoit
             }
             CloseGroupsDialogue();
             return list;
+
         }
 
-        // Verification
         public void VerifyGroupPresence()
         {
             OpenGroupsDialogue();
@@ -121,6 +119,7 @@ namespace addressbook_tests_autoit
                 Create(newGroup);
             }
         }
+
         public int GetGroupCount()
         {
             OpenGroupsDialogue();
