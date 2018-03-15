@@ -12,7 +12,6 @@ namespace addressbook_tests_autoit
         public static string WINTITLE = "Free Address Book";
         private AutoItX3 aux;
         private GroupHelper groupHelper;
-        private ContactHelper contactHelper;
 
         // Запуск приложения с помощью команды Run()
         public ApplicationManager()
@@ -24,15 +23,14 @@ namespace addressbook_tests_autoit
             aux.WinWaitActive(WINTITLE);
 
             groupHelper = new GroupHelper(this);
-            contactHelper = new ContactHelper(this);
         }
 
         // Остановка приложения с помощью команды ControlClick()
         public void Stop()
         {
             // 1 параметр: Название окна, в котором находится кнопка,
-            // 2 параметр: уточняющий параметр - текст кнопки (необязательный),
-            // 3 параметр: идентификатор кнопки - локатор.
+            // 2 параметр: Уточняющий параметр - текст кнопки (необязательный),
+            // 3 параметр: Идентификатор кнопки - локатор.
             aux.ControlClick(WINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d510");
         }
 
@@ -49,14 +47,6 @@ namespace addressbook_tests_autoit
             get
             {
                 return groupHelper;
-            }
-        }
-
-        public ContactHelper Contacts
-        {
-            get
-            {
-                return contactHelper;
             }
         }
     }
