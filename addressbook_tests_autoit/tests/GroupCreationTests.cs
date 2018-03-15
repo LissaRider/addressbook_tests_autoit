@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-
 namespace addressbook_tests_autoit
 {
     [TestFixture]

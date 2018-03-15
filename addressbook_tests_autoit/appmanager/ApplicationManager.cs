@@ -12,6 +12,7 @@ namespace addressbook_tests_autoit
         public static string WINTITLE = "Free Address Book";
         private AutoItX3 aux;
         private GroupHelper groupHelper;
+        private ContactHelper contactHelper;
 
         // Запуск приложения с помощью команды Run()
         public ApplicationManager()
@@ -23,6 +24,7 @@ namespace addressbook_tests_autoit
             aux.WinWaitActive(WINTITLE);
 
             groupHelper = new GroupHelper(this);
+            contactHelper = new ContactHelper(this);
         }
 
         // Остановка приложения с помощью команды ControlClick()
@@ -49,5 +51,14 @@ namespace addressbook_tests_autoit
                 return groupHelper;
             }
         }
+
+        public ContactHelper Contacts
+        {
+            get
+            {
+                return contactHelper;
+            }
+        }
+
     }
 }

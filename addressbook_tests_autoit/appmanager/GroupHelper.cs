@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace addressbook_tests_autoit
 {
@@ -91,14 +92,15 @@ namespace addressbook_tests_autoit
             string count = aux.ControlTreeView(
                 GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51",
                 "GetItemCount", "#0", "");
+
             for (int i = 0; i < int.Parse(count); i++)
             {
-                string item = aux.ControlTreeView(
+                string name = aux.ControlTreeView(
                     GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51",
                     "GetText", "#0|#" + i, "");
                 list.Add(new GroupData()
                 {
-                    Name = item
+                    Name = name
                 });
             }
             CloseGroupsDialogue();
